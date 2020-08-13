@@ -17,7 +17,12 @@ function isUserEligible({body: {phoneNumber, amountInPaise, payload}}, res) {
     .then(({data}) => res.status(200).json(data))
 }
 
-//function paymentRedirection({token, available_credit}) {}
+function paymentRedirection({body: {success, token, merchant_payload, available_credit_in_paise}}, res) {
+  if (success)
+    res.redirect(`https://wxkvz.csb.app/${token}`)
+  else 
+    res.redirect(`https://wxkvz.csb.app/`)
+}
 
 async function chargeUser(
   {body: {phoneNumber, amountInPaise, token, ...rest}},
